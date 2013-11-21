@@ -3,6 +3,7 @@ gangios-install-script
 
 李阳  关于配置文件  下面的主要流程中  蓝色的为我已经掌握配置的步骤，红色的为尚未开始配置的步骤。希望你能把红色部分写具体详细些  具体怎么配。我会努力实现。
 另外 在实现的蓝色部分 在最后有一个nrpe插件装不上 也没有RPM包 应该怎么解决？以下是init.sh脚本中的一段内容。
+```bash
 if [ "$distributor_id" != "Asianux" -a ! -x /etc/init.d/gmond ]; then
   echo -ne "  * Installing gmond service\t\t"
   yum install ganglia-gmond -y > /dev/null 2>&1
@@ -19,7 +20,10 @@ if [ "$distributor_id" != "Asianux" -a ! -x /etc/init.d/nrpe ]; then
   chkconfig nrpe on
   if [ $? -eq 0 ]; then echo "[OK]"; else echo "[Failed]"; fi
 fi
+```
 
+已实现
+```bash
 
 #!/bin/sh
 $1
@@ -105,8 +109,10 @@ sed -i '/bind_hostname/i host = 1.1.1.1' /etc/ganglia/gmond.conf
 sed -i '/mcast_join/s/^/#/g' /etc/ganglia/gmond.conf
 sed -i '/retry_bind/i port =8888' /etc/ganglia/gmond.conf
 sed -i '/bind /s/^/#/' /etc/ganglia/gmond.conf
+```
 
-
+未实现
+```bash
 #syslog udp 发送日志 配置
 vi /etc/syslog.conf
 
@@ -144,3 +150,4 @@ service thin restart
 chkconfig --add thin
 chkconfig --level 2345 thin on
 #===
+```
